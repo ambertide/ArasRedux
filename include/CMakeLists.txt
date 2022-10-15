@@ -1,2 +1,0 @@
-target_include_directories(core)
-add_library(libArasRedux STATIC NS_CORE_SRCS)
