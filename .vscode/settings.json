@@ -1,6 +1,7 @@
 {
     "editor.formatOnType": true,
     "files.associations": {
-        "type_traits": "cpp"
+        "type_traits": "cpp",
+        "list": "cpp"
     }
 }
