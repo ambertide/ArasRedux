@@ -1,29 +1,24 @@
+#include <queue>
+#include <optional>
+#include <memory>
 #include "../Object/Object.hpp"
 #include "../Object/Vector3.hpp"
 #include "../Temporal.hpp"
 #include "State.hpp"
-
+#include "Action.hpp"
+#include "Hurtable.hpp"
 namespace core
 {
-    class Character : public Object, public Temporal
+    class Character : public Object, public Temporal, private Hurtable
     {
     private:
         State state;
         Vector3<float> speed;
-        /**
-         * @brief Position the character is walking to.
-         *
-         */
-        Vector3<float> target_position;
-        float health;
+        /** Current action the character is taking */
+        std::optional<std::shared_ptr<Action>> current_action;
+        /** Pending actions of the player. */
+        std::queue<std::shared_ptr<Action>> action_queue;
         float attack_;
-
-        /**
-         * @brief Walk towards the target_position.
-         *
-         * @param delta: Passed ticks.
-         */
-        void walk_to(int delta);
 
         /**
          * @brief Get the unit step that must be taken towards target.
@@ -31,9 +26,24 @@ namespace core
          * Get the unit step that the character must take towards a target
          * position.
          *
+         * @param target: Target to walk to.
          * @return const Vector3<float>& reference to the step.
          */
-        const Vector3<float> &calculate_step() const;
+        const Vector3<float> &calculate_step(const Vector3<float> &target) const;
+
+        /**
+         * @brief Walk to another position.
+         *
+         * @param delta Passed ticks
+         */
+        void walk(int delta);
+
+        /**
+         * @brief Attack to another character.
+         *
+         * @param character
+         */
+        void attack_();
 
     public:
         void die();
@@ -55,13 +65,6 @@ namespace core
         const float &attack() const;
 
         /**
-         * @brief Attack to another character.
-         *
-         * @param character
-         */
-        void start_attacking_to(Character &other);
-
-        /**
          * @brief Check if a character can walk/run
          *
          * @return true if the character can walk, ie: in IDLE or WALK.
@@ -69,14 +72,19 @@ namespace core
          */
         bool can_walk();
 
-        /**
-         * @brief Walk to another position.
-         *
-         * @param position Position to walk to.
-         */
-        void start_walking_to(const Vector3<float> &position);
-
         void tick(int delta) override;
+
+        /**
+         * @brief Add an action for the character to take.
+         *
+         * @param action
+         */
+        void enqueue_action(std::shared_ptr<Action> action);
+
+        /**
+         * @brief Reset the action queue of the player.
+         */
+        void reset_actions();
 
         /**
          * @brief Construct a new Character object
