@@ -1,12 +1,7 @@
 #include <assert.h>
-#include <Character/Character.hpp>
+#include <core/Character/Character.hpp>
 
 using namespace core;
-
-Character::Character(uint64_t id, Vector3<float> position, float health) : Object::Object(id, position), Hurtable(100, health)
-{
-    this->state = State::IDLE;
-}
 
 bool Character::can_attack()
 {
@@ -20,7 +15,25 @@ void Character::attack_()
     auto &target = std::static_pointer_cast<AttackAction>(action)->target;
     if (this->can_attack())
     {
-        target.hurt(this->attack());
+        target.hurt(this->attack_point());
+        // Now that we attacked, we can reset our action.
+        this->current_action.reset();
+    }
+}
+
+void Character::target(int delta)
+{
+    auto action = this->current_action.value();
+    auto &target = std::static_pointer_cast<AttackAction>(action)->target;
+    if (Vector3<float>::point_distance(target.position(), this->position_) > this->attack_range())
+    {
+        // Try to get in range.
+        this->walk(delta, target.position());
+    }
+    else
+    {
+        // If already in range, attack!
+        this->attack_();
     }
 }
 
@@ -37,15 +50,25 @@ const Vector3<float> &Character::calculate_step(const Vector3<float> &target) co
     return step;
 }
 
+void Character::walk(int delta, const Vector3<float> &target)
+{
+    auto &step = this->calculate_step(target);
+    Vector3<float> effectiveStep = step * delta;
+    this->position() += effectiveStep;
+}
+
 void Character::walk(int delta)
 {
     auto action = this->current_action.value();
     if (this->can_walk())
     {
         auto &target = std::static_pointer_cast<WalkAction>(action)->target;
-        auto &step = this->calculate_step(target);
-        Vector3<float> effectiveStep = step * delta;
-        this->position() += effectiveStep;
+        this->walk(delta, target);
+        if (this->position() == target)
+        {
+            // Arrived at our destination.
+            this->current_action.reset();
+        }
     }
     else
     {
@@ -72,23 +95,16 @@ void Character::tick(int delta)
         this->state = State::IDLE;
         return;
     }
-    switch (this->state)
+
+    switch (action->type_)
     {
-    case State::WALKING:
+    case ActionType::WALK:
         this->walk(delta);
         break;
-    case State::ATTACKING:
-        this->attack();
+    case ActionType::ATTACK:
+        this->target(delta);
     default:
         break;
-    }
-
-    // If the action requires termination, terminate it.
-    // for walking this is when we reach destination,
-    // meanwhile for attack, it is a one turn thing.
-    if (action != nullptr && action->type_ == ActionType::ATTACK || action->type_ == ActionType::WALK && (std::static_pointer_cast<WalkAction>(action))->target == this->position())
-    {
-        this->current_action.reset();
     }
 }
 // If the state is walking, continue walking towards the target_position.

@@ -1,5 +1,5 @@
 #include <cmath>
-#include <Object/Vector3.hpp>
+#include <core/Object/Vector3.hpp>
 
 using namespace core;
 
@@ -86,4 +86,13 @@ Vector3<T>::Vector3(T x, T y, T z) : x(x), y(y), z(z)
 template <typename T>
 Vector3<T>::Vector3(const Vector3<T> &copy) : x(copy.x), y(copy.y), z(copy.z)
 {
+}
+
+template <typename T>
+static const double point_difference(const Vector3<T> &a, const Vector3<T> &b)
+{
+    T d_x = a.x - b.x;
+    T d_y = a.y - b.y;
+    T d_z = a.z - b.z;
+    return std::sqrt(d_x * d_x + d_y * d_y + d_z * d_z);
 }

@@ -1,4 +1,4 @@
-#include <Traits/Hurtable.hpp>
+#include <core/Traits/Hurtable.hpp>
 
 using namespace core;
 

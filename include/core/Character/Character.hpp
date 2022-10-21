@@ -7,10 +7,12 @@
 #include "../Traits/Temporal.hpp"
 #include "State.hpp"
 #include "Action.hpp"
-#include "Hurtable.hpp"
+#include "../Traits/Hurtable.hpp"
+#include "../Traits/Targetable.hpp"
+#include "../Traits/Hostile.hpp"
 namespace core
 {
-    class Character : public Object, public Temporal, private Hurtable
+    class Character : public Object, public Temporal, virtual public Targetable, public Hostile
     {
     private:
         State state;
@@ -19,7 +21,6 @@ namespace core
         std::optional<std::shared_ptr<Action>> current_action;
         /** Pending actions of the player. */
         std::queue<std::shared_ptr<Action>> action_queue;
-        float attack_;
 
         /**
          * @brief Get the unit step that must be taken towards target.
@@ -35,6 +36,14 @@ namespace core
         /**
          * @brief Walk to another position.
          *
+         * @param delta
+         * @param position
+         */
+        void walk(int delta, const Vector3<float> &position);
+
+        /**
+         * @brief Process walk action.
+         *
          * @param delta Passed ticks
          */
         void walk(int delta);
@@ -45,6 +54,16 @@ namespace core
          * @param character
          */
         void attack_();
+
+        /**
+         * @brief Target another character.
+         *
+         * Walk towards the character until it is in range,
+         * then attack it.
+         *
+         * @param delta Time passed until we reach the target.
+         */
+        void target(int delta);
 
     public:
         void die();
@@ -57,13 +76,6 @@ namespace core
          * @return false otherwise.
          */
         bool can_attack();
-
-        /**
-         * @brief Get the attack point of the character.
-         *
-         * @return float
-         */
-        const float &attack() const;
 
         /**
          * @brief Check if a character can walk/run
@@ -94,6 +106,19 @@ namespace core
          * @param position
          * @param health
          */
-        Character(uint64_t id, Vector3<float> position, float health);
+        Character(
+            uint32_t class_id,
+            uint64_t id,
+            const std::string name,
+            Vector3<float> position,
+            Vector3<float> speed,
+            float health,
+            float attack,
+            float range)
+            : Object::Object(class_id, id, name, position),
+              Targetable::Targetable(position, health, health),
+              Hostile::Hostile(attack, range),
+              speed(speed),
+              state(State::IDLE) {}
     };
 };

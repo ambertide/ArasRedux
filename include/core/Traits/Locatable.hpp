@@ -12,7 +12,7 @@ namespace core
         Vector3<float> &position_;
 
     public:
-        Locatable(Vector3<float> &position);
+        explicit Locatable(Vector3<float> &position) : position_(position) {}
         virtual ~Locatable();
 
         /** Setter for position */

@@ -31,5 +31,15 @@ namespace core
 		 * @return double
 		 */
 		double norm() const;
+
+		/**
+		 * @brief Get the distance between two vectors as if
+		 * they are points.
+		 *
+		 * @param a
+		 * @param b
+		 * @return float
+		 */
+		static const double point_distance(const Vector3<T> &a, const Vector3<T> &b);
 	};
 };

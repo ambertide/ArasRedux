@@ -2,8 +2,9 @@ target_sources(
     ArasRedux
     PRIVATE
     Character/Character.cpp
-    Traits/Traits.cpp
+    Map/Level.cpp
+    Traits/Hostile.cpp
+    Traits/Hurtable.cpp
+    Traits/Locatable.cpp
     Object/Vector3.cpp
-    Object/Object.cpp
-    
 )

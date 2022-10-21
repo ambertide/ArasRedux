@@ -1,10 +1,6 @@
-#include <Traits/Locatable.hpp>
+#include <core/Traits/Locatable.hpp>
 
 using namespace core;
-
-Locatable::Locatable(Vector3<float> &position) : position_(position)
-{
-}
 
 Vector3<float> &Locatable::position()
 {

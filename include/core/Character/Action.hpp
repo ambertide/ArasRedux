@@ -1,7 +1,7 @@
 #pragma once
 #include "../Object/Vector3.hpp"
 #include "State.hpp"
-#include "Hurtable.hpp"
+#include "../Traits/Targetable.hpp"
 namespace core
 {
     /**
@@ -32,8 +32,8 @@ namespace core
 
     struct AttackAction : public Action
     {
-        /** Target location to attack */
-        Hurtable &target;
-        AttackAction(Hurtable &target) : Action(ActionType::ATTACK, State::ATTACKING), target(target) {}
+        /** Target entity to attack */
+        Targetable &target;
+        AttackAction(Targetable &target) : Action(ActionType::ATTACK, State::ATTACKING), target(target) {}
     };
 };

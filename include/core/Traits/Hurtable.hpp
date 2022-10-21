@@ -13,7 +13,7 @@ namespace core
         /** Current health */
         int health;
 
-        Hurtable(int max_health, int health);
+        explicit Hurtable(int max_health, int health);
         ~Hurtable();
 
         virtual void hurt(int amount);

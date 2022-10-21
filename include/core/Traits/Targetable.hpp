@@ -11,7 +11,7 @@ namespace core
     class Targetable : public Hurtable, public Locatable
     {
     public:
-        Targetable(Vector3<float> position, int max_health, int health) : Hurtable::Hurtable(max_health, health), Locatable::Locatable(position) {}
+        explicit Targetable(Vector3<float> position, int max_health, int health) : Hurtable::Hurtable(max_health, health), Locatable::Locatable(position) {}
         ~Targetable();
     };
 } // namespace core
