@@ -6,6 +6,8 @@ namespace core
 	template <typename T>
 	struct Vector3
 	{
+		Vector3(const Vector3<T> &copy);
+		Vector3(T x, T y, T z);
 		// Limit the Vector3 to arithmatic classes.
 		static_assert(std::is_arithmetic_v<T>);
 		T x;

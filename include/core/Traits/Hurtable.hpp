@@ -9,7 +9,7 @@ namespace core
     public:
         /** Maximum health of the object. */
         int max_health;
-        /** Current health v*/
+        /** Current health */
         int health;
 
         Hurtable(int max_health, int health);

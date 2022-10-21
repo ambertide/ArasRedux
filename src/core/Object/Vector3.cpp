@@ -77,3 +77,13 @@ double Vector3<T>::norm() const
 {
     return (double)std::sqrt(this.x * this.x, this.y * this.y + this.z * this.z);
 }
+
+template <typename T>
+Vector3<T>::Vector3(T x, T y, T z) : x(x), y(y), z(z)
+{
+}
+
+template <typename T>
+Vector3<T>::Vector3(const Vector3<T> &copy) : x(copy.x), y(copy.y), z(copy.z)
+{
+}

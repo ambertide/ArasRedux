@@ -1,20 +1,15 @@
 #include "Vector3.hpp"
+#include "../Traits/Locatable.hpp"
 
 namespace core
 {
-    class Object
+    class Object : public Locatable
     {
     protected:
         Vector3<float> position_;
         uint64_t id_;
 
     public:
-        /** Setter for position */
-        Vector3<float> &position();
-
-        /** Getter for position */
-        const Vector3<float> &position() const;
-
         /**
          * @brief Get the unique object ID.
          *
