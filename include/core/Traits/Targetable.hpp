@@ -1,3 +1,4 @@
+#pragma once
 #include "Hurtable.hpp"
 #include "Locatable.hpp"
 

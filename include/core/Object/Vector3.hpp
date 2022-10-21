@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include <type_traits>
 
+#pragma once
 namespace core
 {
 	template <typename T>

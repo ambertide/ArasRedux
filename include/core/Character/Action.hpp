@@ -1,3 +1,4 @@
+#pragma once
 #include "../Object/Vector3.hpp"
 #include "State.hpp"
 #include "Hurtable.hpp"

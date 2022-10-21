@@ -1,3 +1,4 @@
+#pragma once
 #include "Vector3.hpp"
 #include "../Traits/Locatable.hpp"
 
@@ -6,7 +7,6 @@ namespace core
     class Object : public Locatable
     {
     protected:
-        Vector3<float> position_;
         uint64_t id_;
 
     public:
