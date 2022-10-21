@@ -1,6 +1,6 @@
 #pragma once
 #include <list>
-#include "../Temporal.hpp"
+#include "../Traits/Temporal.hpp"
 #include "../Character/Character.hpp"
 #include "../Character/Player.hpp"
 namespace core

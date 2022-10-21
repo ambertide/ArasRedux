@@ -4,7 +4,7 @@
 #include <memory>
 #include "../Object/Object.hpp"
 #include "../Object/Vector3.hpp"
-#include "../Temporal.hpp"
+#include "../Traits/Temporal.hpp"
 #include "State.hpp"
 #include "Action.hpp"
 #include "Hurtable.hpp"
