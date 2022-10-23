@@ -129,6 +129,7 @@ namespace core
               Targetable::Targetable(position, health, health),
               Hostile::Hostile(attack, range),
               speed(speed),
-              state(State::IDLE) {}
+              state(State::IDLE),
+              Locatable(position) {}
     };
 };
