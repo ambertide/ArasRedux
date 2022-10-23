@@ -24,6 +24,11 @@ const float &Hostile::attack_range() const
     return this->attack_range_;
 }
 
+const float &Hostile::notice_range() const
+{
+    return this->notice_range_;
+}
+
 const std::list<AttackModifier> &Hostile::attack_modifiers() const
 {
     return this->attack_modifiers_;

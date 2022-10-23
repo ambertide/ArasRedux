@@ -112,4 +112,13 @@ void Character::tick(int delta)
         break;
     }
 }
-// If the state is walking, continue walking towards the target_position.
+
+bool Character::is_attacking(const Targetable &target) const
+{
+    if (this->current_action()->type_ != ActionType::ATTACK)
+    {
+        return false;
+    }
+    auto action = std::static_pointer_cast<AttackAction>(this->current_action());
+    return (&action->target == &target);
+}

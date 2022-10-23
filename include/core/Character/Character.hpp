@@ -73,6 +73,15 @@ namespace core
         void die();
 
         /**
+         * @brief Check if the character is attacking this target.
+         *
+         * @param target Target to check against.
+         * @return true
+         * @return false
+         */
+        bool is_attacking(const Targetable &target) const;
+
+        /**
          * @brief Check if a character is in a busy state.
          *
          *
@@ -124,10 +133,11 @@ namespace core
             Vector3<float> speed,
             float health,
             float attack,
-            float range)
+            float range,
+            float notice_range)
             : Object::Object(class_id, id, name, position),
               Targetable::Targetable(position, health, health),
-              Hostile::Hostile(attack, range),
+              Hostile::Hostile(attack, range, notice_range),
               speed(speed),
               state(State::IDLE),
               Locatable(position) {}

@@ -46,6 +46,11 @@ namespace core
         const float base_attack_range;
         float attack_point_;
         float attack_range_;
+        /**
+         * @brief Range by which the entity notices other Targetables.
+         *
+         */
+        float notice_range_;
         std::list<AttackModifier> attack_modifiers_;
 
     public:
@@ -55,13 +60,16 @@ namespace core
          */
         float attack_multiplier = 1.0f;
 
-        explicit Hostile(const float base_attack_point, const float base_attack_range) : base_attack_point(base_attack_point), base_attack_range(base_attack_range) {}
+        explicit Hostile(const float base_attack_point, const float base_attack_range, const float notice_range) : base_attack_point(base_attack_point), base_attack_range(base_attack_range), notice_range_(notice_range) {}
 
         /** Get the attack value of the hostile. */
         const float &attack_point() const;
 
         /** Get the attack range of the hostile. */
         const float &attack_range() const;
+
+        /** Get the notice range of the hostile */
+        const float &notice_range() const;
 
         /**
          * @brief Add an attack modifier to the Hostile object.
