@@ -9,21 +9,44 @@ bool Character::can_attack()
     return state == State::IDLE || state == State::WALKING || state == State::ALERT;
 }
 
+void Character::next_action()
+{
+    this->actions.pop();
+    auto next_action = this->current_action();
+    if (next_action != nullptr)
+    {
+        this->state = next_action->state;
+    }
+    else
+    {
+        this->state = State::IDLE;
+    }
+}
+
+const std::shared_ptr<Action> Character::current_action() const
+{
+    if (this->actions.empty())
+    {
+        return nullptr;
+    }
+    return this->actions.top();
+}
+
 void Character::attack_()
 {
-    auto action = this->current_action.value();
+    auto action = this->current_action();
     auto &target = std::static_pointer_cast<AttackAction>(action)->target;
     if (this->can_attack())
     {
         target.hurt(this->attack_point());
         // Now that we attacked, we can reset our action.
-        this->current_action.reset();
+        this->next_action();
     }
 }
 
 void Character::target(int delta)
 {
-    auto action = this->current_action.value();
+    auto action = this->current_action();
     auto &target = std::static_pointer_cast<AttackAction>(action)->target;
     if (Vector3<float>::point_distance(target.position(), this->position_) > this->attack_range())
     {
@@ -59,7 +82,7 @@ void Character::walk(int delta, const Vector3<float> &target)
 
 void Character::walk(int delta)
 {
-    auto action = this->current_action.value();
+    auto action = this->current_action();
     if (this->can_walk())
     {
         auto &target = std::static_pointer_cast<WalkAction>(action)->target;
@@ -67,7 +90,7 @@ void Character::walk(int delta)
         if (this->position() == target)
         {
             // Arrived at our destination.
-            this->current_action.reset();
+            this->next_action();
         }
     }
     else
@@ -78,25 +101,7 @@ void Character::walk(int delta)
 
 void Character::tick(int delta)
 {
-    auto action = this->current_action.value_or(nullptr);
-    // Now get the next action if queue is not empty.
-    if (action == nullptr && !this->action_queue.empty())
-    {
-        auto next_action = this->action_queue.front();
-        this->action_queue.pop();
-        // And place it as the current action.
-        this->current_action.emplace(next_action);
-        // Switch to action's state.
-        this->state = this->current_action.value()->state;
-    }
-    else
-    {
-        // Switch the state to idle if we do not have any next action to take.
-        this->state = State::IDLE;
-        return;
-    }
-
-    switch (action->type_)
+    switch (this->current_action()->type_)
     {
     case ActionType::WALK:
         this->walk(delta);

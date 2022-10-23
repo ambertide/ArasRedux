@@ -1,5 +1,5 @@
 #pragma once
-#include <queue>
+#include <stack>
 #include <optional>
 #include <memory>
 #include "../Object/Object.hpp"
@@ -17,10 +17,8 @@ namespace core
     private:
         State state;
         Vector3<float> speed;
-        /** Current action the character is taking */
-        std::optional<std::shared_ptr<Action>> current_action;
         /** Pending actions of the player. */
-        std::queue<std::shared_ptr<Action>> action_queue;
+        std::stack<std::shared_ptr<Action>> actions;
 
         /**
          * @brief Get the unit step that must be taken towards target.
@@ -65,6 +63,12 @@ namespace core
          */
         void target(int delta);
 
+        /**
+         * @brief Stop executing the current action and switch to next.
+         *
+         */
+        void next_action();
+
     public:
         void die();
 
@@ -88,11 +92,17 @@ namespace core
         void tick(int delta) override;
 
         /**
+         * @brief Get the current action being executed by the player.
+         *
+         */
+        const std::shared_ptr<Action> current_action() const;
+
+        /**
          * @brief Add an action for the character to take.
          *
          * @param action
          */
-        void enqueue_action(std::shared_ptr<Action> action);
+        void push_action(std::shared_ptr<Action> action);
 
         /**
          * @brief Reset the action queue of the player.
