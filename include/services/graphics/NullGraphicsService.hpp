@@ -6,9 +6,13 @@ namespace services
     {
     private:
         /* data */
+    protected:
+        virtual void draw(const core::Object &locatable) override{};
+
     public:
-        NullGraphicsService(/* args */);
+        NullGraphicsService(/* args */) : GraphicsService(){};
         ~NullGraphicsService(){};
-        void mainloop() override{};
+        virtual void mainloop() override{};
+        virtual bool available() const override { return true; }
     };
 }

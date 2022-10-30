@@ -36,17 +36,17 @@ template <typename T>
 Vector3<T> &Vector3<T>::operator*(const double &scalar) const
 {
     return {
-        this.x * scalar,
-        this.y * scalar,
-        this.z * scalar};
+        this->x * scalar,
+        this->y * scalar,
+        this->z * scalar};
 }
 
 template <typename T>
 Vector3<T> &Vector3<T>::operator-=(const Vector3<T> &other)
 {
-    this.x -= other.x;
-    this.y -= other.y;
-    this.z -= other.z;
+    this->x -= other.x;
+    this->y -= other.y;
+    this->z -= other.z;
     return *this;
 }
 
@@ -59,9 +59,9 @@ Vector3<T> &Vector3<T>::operator-(const Vector3<T> &other) const
 template <typename T>
 Vector3<T> &Vector3<T>::operator/=(const double &scalar)
 {
-    this.x /= scalar;
-    this.y /= scalar;
-    this.z /= scalar;
+    this->x /= scalar;
+    this->y /= scalar;
+    this->z /= scalar;
     return this;
 }
 
@@ -75,7 +75,7 @@ Vector3<T> &Vector3<T>::operator/(const double &scalar) const
 template <typename T>
 double Vector3<T>::norm() const
 {
-    return (double)std::sqrt(this.x * this.x, this.y * this.y + this.z * this.z);
+    return (double)std::sqrt(this->x * this->x, this->y * this->y + this->z * this->z);
 }
 
 template <typename T>
