@@ -4,7 +4,7 @@ set(CMAKE_CXX_STANDARD 20)
 
 if (NOT(WIN32))
     add_definitions(-DNCURSES_ENABLED)
-endif(WIN32)
+endif(NOT(WIN32))
 
 add_executable(ArasRedux src/main.cpp)
 add_subdirectory(src)
