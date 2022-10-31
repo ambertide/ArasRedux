@@ -25,14 +25,7 @@ namespace services
         TerminalGraphicsService(/* args */);
         ~TerminalGraphicsService();
         virtual void mainloop() override;
+        virtual bool available() const override;
     };
-
-    TerminalGraphicsService::TerminalGraphicsService(/* args */)
-    {
-    }
-
-    TerminalGraphicsService::~TerminalGraphicsService()
-    {
-    }
 
 } // namespace service

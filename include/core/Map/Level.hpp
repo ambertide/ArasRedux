@@ -15,7 +15,7 @@ namespace core
     class Level : public Temporal
     {
     private:
-        Player &player;
+        Player player;
 
         /**
          * @brief All time affected entities in the level.
@@ -37,5 +37,6 @@ namespace core
 
     public:
         virtual void tick(int delta) override;
+        Level(Player player, std::list<std::shared_ptr<Temporal>> temporals, std::list<std::shared_ptr<Character>> characters) : player(player), temporals(temporals), characters(characters){};
     };
 };

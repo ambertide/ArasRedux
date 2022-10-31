@@ -14,7 +14,7 @@ namespace core
         int health;
 
         explicit Hurtable(int max_health, int health);
-        ~Hurtable();
+        virtual ~Hurtable() = default;
 
         virtual void hurt(int amount);
         virtual void heal(int amount);

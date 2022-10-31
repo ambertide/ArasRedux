@@ -87,6 +87,6 @@ namespace core
 
         const std::list<AttackModifier> &attack_modifiers() const;
 
-        virtual ~Hostile();
+        virtual ~Hostile() = default;
     };
 };

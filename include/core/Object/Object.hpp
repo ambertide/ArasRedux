@@ -33,6 +33,6 @@ namespace core
          * @param id
          */
         Object(uint32_t class_id, uint64_t id, const std::string name, Vector3<float> position) : class_id_(class_id), id_(id), name_(name), Locatable::Locatable(position) {}
-        virtual ~Object();
+        virtual ~Object() = default;
     };
 };

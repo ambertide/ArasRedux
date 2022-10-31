@@ -12,7 +12,7 @@
 #include "../Traits/Hostile.hpp"
 namespace core
 {
-    class Character : public Object, public Temporal, virtual public Targetable, public Hostile
+    class Character : public Object, public Temporal, public Targetable, public Hostile
     {
     private:
         State state;

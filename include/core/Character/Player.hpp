@@ -8,7 +8,7 @@ namespace core
     private:
         /* data */
     public:
-        Player();
-        ~Player();
+        Player() : Character(0, 0, "Player", {0, 0, 0}, {1, 1, 1}, 50, 0.5f, 0.5f, 0.5f), Locatable({0, 0, 0}){};
+        ~Player() = default;
     };
 };

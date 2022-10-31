@@ -12,6 +12,6 @@ namespace core
     {
     public:
         explicit Targetable(Vector3<float> position, int max_health, int health) : Hurtable::Hurtable(max_health, health), Locatable::Locatable(position) {}
-        ~Targetable();
+        virtual ~Targetable() = default;
     };
 } // namespace core

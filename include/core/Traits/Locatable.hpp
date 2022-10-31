@@ -9,11 +9,11 @@ namespace core
     class Locatable
     {
     protected:
-        Vector3<float> &position_;
+        Vector3<float> position_;
 
     public:
-        explicit Locatable(Vector3<float> &position) : position_(position) {}
-        virtual ~Locatable();
+        explicit Locatable(Vector3<float> position) : position_(position) {}
+        virtual ~Locatable() = default;
 
         /** Setter for position */
         virtual Vector3<float> &position();

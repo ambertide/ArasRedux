@@ -6,10 +6,6 @@ Hurtable::Hurtable(int max_health, int health) : max_health(max_health), health(
 {
 }
 
-Hurtable::~Hurtable()
-{
-}
-
 void Hurtable::heal(int amount)
 {
     if (this->health + amount <= this->max_health)
