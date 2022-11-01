@@ -20,10 +20,11 @@ namespace services
          * @param character character to draw.
          */
         void draw_at(const float x, const float y, const float screen_centre, std::string character);
+        virtual void draw(const core::Object &object) override;
 
     public:
-        TerminalGraphicsService(/* args */);
-        ~TerminalGraphicsService();
+        TerminalGraphicsService(/* args */) {}
+        ~TerminalGraphicsService() = default;
         virtual void mainloop() override;
         virtual bool available() const override;
     };

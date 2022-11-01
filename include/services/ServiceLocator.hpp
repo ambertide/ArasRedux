@@ -12,7 +12,7 @@ namespace services
 
     public:
         ServiceLocator();
-        ~ServiceLocator();
+        ~ServiceLocator() = default;
 
         /**
          * @brief Return a reference to a graphics service.

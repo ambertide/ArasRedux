@@ -19,13 +19,13 @@ namespace core
          *
          * @return const uint64_t& Const reference to object id.
          */
-        const uint64_t &id() const;
+        const uint64_t id() const { return this->id_; }
 
         /** @brief Get the name of the object. */
-        const std::string &name() const;
+        const std::string name() const { return this->name_; };
 
         /** @brief Get the unique class id of the object. */
-        const uint16_t &class_id() const;
+        const uint16_t class_id() const { return this->class_id_; };
 
         /**
          * @brief Construct a new Object object

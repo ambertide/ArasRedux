@@ -66,10 +66,10 @@ bool Character::can_walk()
     return state == State::IDLE || state == State::WALKING || state == State::ALERT;
 }
 
-const Vector3<float> &Character::calculate_step(const Vector3<float> &target) const
+const Vector3<float> Character::calculate_step(const Vector3<float> &target) const
 {
     const auto &diff = target - this->position();
-    const Vector3<float> &step = diff / diff.norm();
+    const Vector3<float> step = diff / diff.norm();
     return step;
 }
 
@@ -121,4 +121,17 @@ bool Character::is_attacking(const Targetable &target) const
     }
     auto action = std::static_pointer_cast<AttackAction>(this->current_action());
     return (&action->target == &target);
+}
+
+void Character::push_action(std::shared_ptr<Action> action)
+{
+    this->actions.push(action);
+}
+
+void Character::reset_actions()
+{
+    while (!this->actions.empty())
+    {
+        this->actions.pop();
+    }
 }

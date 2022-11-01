@@ -8,6 +8,10 @@ bool services::TerminalGraphicsService::available() const
     return true;
 }
 
+void services::TerminalGraphicsService::draw(const core::Object &object)
+{
+}
+
 #else
 
 void services::TerminalGraphicsService::mainloop() {}

@@ -29,7 +29,7 @@ namespace core
          * @param target: Target to walk to.
          * @return const Vector3<float>& reference to the step.
          */
-        const Vector3<float> &calculate_step(const Vector3<float> &target) const;
+        const Vector3<float> calculate_step(const Vector3<float> &target) const;
 
         /**
          * @brief Walk to another position.

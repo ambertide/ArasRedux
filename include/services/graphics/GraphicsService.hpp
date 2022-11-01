@@ -16,11 +16,11 @@ namespace services
          *
          * @param locatable
          */
-        virtual void draw(const core::Object &locatable);
+        virtual void draw(const core::Object &object) = 0;
 
     public:
         GraphicsService(/* args */){};
-        virtual ~GraphicsService() = 0;
+        virtual ~GraphicsService() = default;
 
         /**
          * @brief Set the level object

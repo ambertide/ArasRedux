@@ -28,4 +28,5 @@ int main()
 
     // Execute the graphics routines in a new thread.
     std::thread graphics_thread(graphics_mainloop, std::ref(service_locator->graphics()));
+    graphics_thread.join();
 }
