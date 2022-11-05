@@ -14,6 +14,17 @@ namespace core
         ATTACK
     };
 
+    inline const std::string convert_action_type(ActionType type)
+    {
+        switch (type)
+        {
+        case WALK:
+            return "WALK";
+        case ATTACK:
+            return "ATTACK";
+        }
+    }
+
     struct Action
     {
         /** Type of the action. */

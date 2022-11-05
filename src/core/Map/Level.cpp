@@ -10,14 +10,14 @@ void Level::proccess_characters()
     {
         if (Vector3<float>::point_distance(
                 character->position(),
-                this->player.position()) < character->notice_range() &&
-            !character->is_attacking(this->player))
+                this->player().position()) < character->notice_range() &&
+            !character->is_attacking(this->player()))
 
         {
             // If the player is close enough and character is not already targeting them
             // Target the player.
             // Create new attack action to attack the player
-            auto action = std::make_shared<AttackAction>(player);
+            auto action = std::make_shared<AttackAction>(this->player());
             // And push it to the action stack.
             character->push_action(action);
         }
@@ -31,4 +31,9 @@ void Level::tick(int delta)
     {
         temporal->tick(delta);
     }
+}
+
+Player &Level::player()
+{
+    return this->player_;
 }

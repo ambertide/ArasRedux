@@ -28,6 +28,12 @@ namespace services
          */
         virtual void release_screen() = 0;
 
+        /**
+         * @brief Print player stats to the screen.
+         *
+         */
+        virtual void print_player_stats() = 0;
+
     public:
         GraphicsService(/* args */){};
         virtual ~GraphicsService() = default;

@@ -10,6 +10,7 @@ namespace services
         virtual void draw(const core::Object &locatable) override{};
         virtual void init_screen() override{};
         virtual void release_screen() override{};
+        virtual void print_player_stats() override{};
 
     public:
         NullGraphicsService(/* args */) : GraphicsService(){};

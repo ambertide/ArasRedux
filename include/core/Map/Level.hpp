@@ -12,10 +12,10 @@ namespace core
      * Also controls the movement and behaviour of the enemies
      * around the player since the level *knows* its own layout.
      */
-    class Level : public Temporal
+    class Level final : public Temporal
     {
     private:
-        Player player;
+        Player player_;
 
         /**
          * @brief All time affected entities in the level.
@@ -37,6 +37,13 @@ namespace core
 
     public:
         virtual void tick(int delta) override;
-        Level(Player player, std::list<std::shared_ptr<Temporal>> temporals, std::list<std::shared_ptr<Character>> characters) : player(player), temporals(temporals), characters(characters){};
+
+        /**
+         * @brief Get the player object
+         *
+         * @return Player&
+         */
+        Player &player();
+        Level(Player player, std::list<std::shared_ptr<Temporal>> temporals, std::list<std::shared_ptr<Character>> characters) : player_(player), temporals(temporals), characters(characters){};
     };
 };
