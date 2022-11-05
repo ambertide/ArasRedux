@@ -18,6 +18,16 @@ namespace services
          */
         virtual void draw(const core::Object &object) = 0;
 
+        /**
+         * @brief Initialise the screen drawing routines.
+         */
+        virtual void init_screen() = 0;
+
+        /**
+         * @brief Release the owned screen resources.
+         */
+        virtual void release_screen() = 0;
+
     public:
         GraphicsService(/* args */){};
         virtual ~GraphicsService() = default;

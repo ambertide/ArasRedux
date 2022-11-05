@@ -5,6 +5,10 @@
 
 namespace services
 {
+    /**
+     * @brief Class to get and set game services.
+     *
+     */
     class ServiceLocator
     {
     private:

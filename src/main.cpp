@@ -1,21 +1,34 @@
 #include <memory>
 #include <thread>
+#include <chrono>
+#include <iostream>
 #include <core/Map/Level.hpp>
 #include <core/Character/Player.hpp>
 #include <core/Character/Character.hpp>
 #include <core/Traits/Temporal.hpp>
 #include <services/ServiceLocator.hpp>
 #include <services/graphics/TerminalGraphicsService.hpp>
+#include <game/Game.hpp>
 
-void graphics_mainloop(services::GraphicsService &graphics_service)
+void game_mainloop(game::Game &game)
 {
-    graphics_service.mainloop();
+    while (!game.should_terminate())
+    {
+        using namespace std::chrono_literals;
+        game.current_level()->tick(1);
+        std::this_thread::sleep_for(1000ms);
+    }
+}
+
+void graphics_mainloop(services::GraphicsService &graphics)
+{
+    graphics.mainloop();
 }
 
 int main()
 {
     // Construct services.
-    auto service_locator = std::make_shared<services::ServiceLocator>();
+    auto service_locator = std::make_unique<services::ServiceLocator>();
     auto graphics_service = std::make_unique<services::TerminalGraphicsService>();
     service_locator->provide(std::move(graphics_service));
 
@@ -24,9 +37,14 @@ int main()
     core::Player player;
     // Generate the main level and load it to the services.
     auto main_level = std::make_shared<core::Level>(player, temporals, characters);
-    service_locator->graphics().set_level(main_level);
+    game::Game game(std::move(service_locator), main_level);
+    game.service_locator().graphics().set_level(main_level);
 
-    // Execute the graphics routines in a new thread.
-    std::thread graphics_thread(graphics_mainloop, std::ref(service_locator->graphics()));
-    graphics_thread.join();
+    // Execute the game logic in a new thread since some
+    // Graphics services need to own the main thread to
+    // work properly.
+    std::thread game_thread(game_mainloop, std::ref(game));
+    graphics_mainloop(game.service_locator().graphics());
+    game.set_should_terminate(true);
+    game_thread.join();
 }

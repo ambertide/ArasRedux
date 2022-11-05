@@ -8,6 +8,8 @@ namespace services
         /* data */
     protected:
         virtual void draw(const core::Object &locatable) override{};
+        virtual void init_screen() override{};
+        virtual void release_screen() override{};
 
     public:
         NullGraphicsService(/* args */) : GraphicsService(){};

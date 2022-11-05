@@ -21,6 +21,8 @@ namespace services
          */
         void draw_at(const float x, const float y, const float screen_centre, std::string character);
         virtual void draw(const core::Object &object) override;
+        virtual void init_screen() override;
+        virtual void release_screen() override;
 
     public:
         TerminalGraphicsService(/* args */) {}
