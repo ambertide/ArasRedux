@@ -5,8 +5,27 @@
 
 namespace core
 {
+
+    /**
+     * @brief Types of the object.
+     *
+     */
+    enum ObjectType
+    {
+        BASIC,
+        CHARACTER,
+        PLAYER
+    };
+
+    /**
+     * @brief Any game object that has a physical presence on the map.
+     *
+     */
     class Object : virtual public Locatable
     {
+    private:
+        const ObjectType object_type_;
+
     protected:
         /** Id of the Object's class. */
         const uint32_t class_id_;
@@ -28,11 +47,15 @@ namespace core
         const uint16_t class_id() const { return this->class_id_; };
 
         /**
-         * @brief Construct a new Object object
+         * @brief Construct a new Object object.
          *
          * @param id
          */
-        Object(uint32_t class_id, uint64_t id, const std::string name, Vector3<float> position) : class_id_(class_id), id_(id), name_(name), Locatable::Locatable(position) {}
-        virtual ~Object() = default;
+        Object(uint32_t class_id, uint64_t id, const std::string name, Vector3<float> position, const ObjectType type = ObjectType::BASIC)
+            : class_id_(class_id),
+              id_(id),
+              name_(name),
+              Locatable::Locatable(position),
+              object_type_(type) {}
     };
 };

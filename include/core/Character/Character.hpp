@@ -134,8 +134,9 @@ namespace core
             float health,
             float attack,
             float range,
-            float notice_range)
-            : Object::Object(class_id, id, name, position),
+            float notice_range,
+            const ObjectType object_type = ObjectType::CHARACTER)
+            : Object::Object(class_id, id, name, position, object_type),
               Targetable::Targetable(position, health, health),
               Hostile::Hostile(attack, range, notice_range),
               speed(speed),
