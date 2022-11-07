@@ -29,7 +29,7 @@ int main()
 {
     // Construct services.
     auto service_locator = std::make_unique<services::ServiceLocator>();
-    auto graphics_service = std::make_unique<services::TerminalGraphicsService>(1);
+    auto graphics_service = std::make_unique<services::TerminalGraphicsService>(2);
     service_locator->provide(std::move(graphics_service));
 
     std::list<std::shared_ptr<core::Temporal>> temporals;

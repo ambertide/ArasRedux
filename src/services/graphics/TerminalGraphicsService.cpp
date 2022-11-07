@@ -10,6 +10,13 @@ void services::TerminalGraphicsService::init_screen()
     keypad(stdscr, true);
     noecho();
     nonl();
+    if (has_colors())
+    {
+        start_color();
+        init_pair(1, COLOR_GREEN, COLOR_BLACK);
+        init_pair(2, COLOR_BLUE, COLOR_BLACK);
+        init_pair(3, COLOR_RED, COLOR_BLACK);
+    }
     // Initiate the stats window
     refresh();
     this->stats_window = newwin(15, COLS, LINES - 15, 0);
@@ -40,7 +47,9 @@ void services::TerminalGraphicsService::render_player()
 {
     int center_y = LINES / 2;
     int center_x = COLS / 2;
+    attron(COLOR_PAIR(1));
     mvprintw(center_y, center_x, "P");
+    attroff(COLOR_PAIR(1));
 }
 
 bool services::TerminalGraphicsService::available() const
@@ -74,14 +83,18 @@ void services::TerminalGraphicsService::render(core::Object *object)
         break;
 
     default:
+        attron(COLOR_PAIR(2));
         this->render(object, "O");
+        attroff(COLOR_PAIR(2));
         break;
     }
 }
 
 void services::TerminalGraphicsService::render(core::Character *character)
 {
+    attron(COLOR_PAIR(3));
     this->render(character, "C");
+    attroff(COLOR_PAIR(3));
 }
 
 void services::TerminalGraphicsService::render_objects()
