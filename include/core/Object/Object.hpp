@@ -46,6 +46,8 @@ namespace core
         /** @brief Get the unique class id of the object. */
         const uint16_t class_id() const { return this->class_id_; };
 
+        const ObjectType object_type() const { return this->object_type_; }
+
         /**
          * @brief Construct a new Object object.
          *

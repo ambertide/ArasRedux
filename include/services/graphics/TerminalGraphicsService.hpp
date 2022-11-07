@@ -22,23 +22,25 @@ namespace services
     {
     private:
         WINDOW *stats_window;
+        const int grid_size;
 
         /**
-         * @brief Draw a single character at the given location of the screen.
+         * @brief Render a locatable with a given character.
          *
-         * @param x x location in the coord space.
-         * @param y y location in the coord space
-         * @param screen_centre centre of the screen in the coordinate space.
-         * @param character character to draw.
+         * @param locatable
+         * @param character
          */
-        void draw_at(const float x, const float y, const float screen_centre, std::string character);
-        virtual void draw(const core::Object &object) override;
+        void render(core::Locatable *locatable, const char *character);
         virtual void init_screen() override;
         virtual void release_screen() override;
         virtual void print_player_stats() override;
+        virtual void render_player() override;
+        virtual void render(core::Object *object) override;
+        virtual void render(core::Character *character) override;
+        virtual void render_objects() override;
 
     public:
-        TerminalGraphicsService(/* args */) {}
+        TerminalGraphicsService(const int grid_size) : grid_size(grid_size) {}
         ~TerminalGraphicsService() = default;
         virtual void mainloop() override;
         virtual bool available() const override;

@@ -27,7 +27,7 @@ namespace core
          * @brief NPCs in the level, shares members with above.
          *
          */
-        std::list<std::shared_ptr<Character>> characters;
+        std::list<std::shared_ptr<Object>> objects;
 
         /**
          * @brief Run character AI and decision routines.
@@ -44,6 +44,15 @@ namespace core
          * @return Player&
          */
         Player &player();
-        Level(Player player, std::list<std::shared_ptr<Temporal>> temporals, std::list<std::shared_ptr<Character>> characters) : player_(player), temporals(temporals), characters(characters){};
+        Level(Player player, std::list<std::shared_ptr<Temporal>> temporals, std::list<std::shared_ptr<Object>> objects) : player_(player), temporals(temporals), objects(objects){};
+
+        /**
+         * @brief Get objects within range.
+         *
+         * @param centre Centre of the range.
+         * @param range Range within which the objects are detected.
+         * @return std::vector<std::shared_ptr<Object>>
+         */
+        const std::list<std::shared_ptr<Object>> objects_within_range(const Locatable &centre, float range) const;
     };
 };

@@ -16,7 +16,20 @@ namespace services
          *
          * @param locatable
          */
-        virtual void draw(const core::Object &object) = 0;
+        virtual void render(core::Object *object) = 0;
+
+        /**
+         * @brief  Draw a character to the screen.
+         *
+         * @param character
+         */
+        virtual void render(core::Character *character) = 0;
+
+        /**
+         * @brief Render all the objects with player's notice range.
+         *
+         */
+        virtual void render_objects() = 0;
 
         /**
          * @brief Initialise the screen drawing routines.
@@ -33,6 +46,12 @@ namespace services
          *
          */
         virtual void print_player_stats() = 0;
+
+        /**
+         * @brief Render the player character.
+         *
+         */
+        virtual void render_player() = 0;
 
     public:
         GraphicsService(/* args */){};

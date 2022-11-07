@@ -29,14 +29,18 @@ int main()
 {
     // Construct services.
     auto service_locator = std::make_unique<services::ServiceLocator>();
-    auto graphics_service = std::make_unique<services::TerminalGraphicsService>();
+    auto graphics_service = std::make_unique<services::TerminalGraphicsService>(1);
     service_locator->provide(std::move(graphics_service));
 
     std::list<std::shared_ptr<core::Temporal>> temporals;
-    std::list<std::shared_ptr<core::Character>> characters;
+    std::list<std::shared_ptr<core::Object>> objects;
+    auto object = std::make_shared<core::Object>(1, 2, "Grail", core::Vector3{10.0f, 30.0f, 0.0f});
+    auto character = std::make_shared<core::Character>(2, 43, "Basic Enemy", core::Vector3{-30.0f, 20.0f, 0.0f}, core::Vector3{1.0f, 1.0f, 0.0f}, 25.0f, 0.5f, 5.0f, 1.0f);
+    objects.push_back(object);
+    objects.push_back(character);
     core::Player player;
     // Generate the main level and load it to the services.
-    auto main_level = std::make_shared<core::Level>(player, temporals, characters);
+    auto main_level = std::make_shared<core::Level>(player, temporals, objects);
     game::Game game(std::move(service_locator), main_level);
     game.service_locator().graphics().set_level(main_level);
 

@@ -33,6 +33,67 @@ void services::TerminalGraphicsService::print_player_stats()
     mvwprintw(this->stats_window, 5, 2, "Attack: %d", player.attack_point());
     mvwprintw(this->stats_window, 6, 2, "Range: ", player.attack_range());
     mvwprintw(this->stats_window, 7, 2, "Currently Undertaking: %s", current_action_string.c_str());
+    mvwprintw(this->stats_window, 8, 2, "Player is at: (%d, %d)", player.position().x, player.position().y);
+}
+
+void services::TerminalGraphicsService::render_player()
+{
+    int center_y = LINES / 2;
+    int center_x = COLS / 2;
+    mvprintw(center_y, center_x, "P");
+}
+
+bool services::TerminalGraphicsService::available() const
+{
+    return true;
+}
+
+void services::TerminalGraphicsService::render(core::Locatable *locatable, const char *character)
+{
+    auto &player = this->current_level->player();
+
+    // Center in terms of real space.
+    auto centre = player.position();
+
+    int centre_x = COLS / 2;
+    int centre_y = LINES / 2;
+
+    // Calculate the offsets in terms of screen.
+    int offset_x = (centre.x - locatable->position().x) / this->grid_size;
+    int offset_y = (centre.y - locatable->position().y) / this->grid_size;
+
+    mvprintw(centre_y + offset_y, centre_x + offset_x, character);
+}
+
+void services::TerminalGraphicsService::render(core::Object *object)
+{
+    switch (object->object_type())
+    {
+    case core::ObjectType::CHARACTER:
+        this->render(static_cast<core::Character *>(object));
+        break;
+
+    default:
+        this->render(object, "O");
+        break;
+    }
+}
+
+void services::TerminalGraphicsService::render(core::Character *character)
+{
+    this->render(character, "C");
+}
+
+void services::TerminalGraphicsService::render_objects()
+{
+    // Get objects in the player's range.
+    auto objects = this->current_level->objects_within_range(
+        this->current_level->player(),
+        this->current_level->player().notice_range());
+    for (auto object : objects)
+    {
+        this->render(object.get());
+    }
 }
 
 void services::TerminalGraphicsService::mainloop()
@@ -42,20 +103,14 @@ void services::TerminalGraphicsService::mainloop()
     do
     {
         char_input = getch();
+        this->render_player();
+        this->render_objects();
         refresh();
         this->print_player_stats();
-        mvwprintw(this->stats_window, 8, 2, "Pressing: %d", char_input);
+        mvwprintw(this->stats_window, 4, 60, "Pressing: %d", char_input);
         wrefresh(this->stats_window);
     } while (char_input != 127);
     this->release_screen();
-}
-bool services::TerminalGraphicsService::available() const
-{
-    return true;
-}
-
-void services::TerminalGraphicsService::draw(const core::Object &object)
-{
 }
 
 #else
