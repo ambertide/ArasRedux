@@ -16,7 +16,7 @@ namespace core
 		bool operator==(const Vector3<T> &other) const = default;
 		bool operator!=(const Vector3<T> &other) const
 		{
-			return !(this == other);
+			return !(*this == other);
 		}
 
 		Vector3<T> &operator+=(const Vector3<T> &other)

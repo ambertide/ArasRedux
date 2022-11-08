@@ -53,6 +53,15 @@ namespace services
          */
         virtual void render_player() = 0;
 
+        /**
+         * @brief Handle the user input.
+         *
+         * For traditional reasons, graphics services also handle
+         *  user input.
+         *
+         */
+        virtual void handle_user_input() = 0;
+
     public:
         GraphicsService(/* args */){};
         virtual ~GraphicsService() = default;

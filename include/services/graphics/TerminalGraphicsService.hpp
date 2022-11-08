@@ -23,6 +23,7 @@ namespace services
     private:
         WINDOW *stats_window;
         const int grid_size;
+        bool should_terminate = false;
 
         /**
          * @brief Render a locatable with a given character.
@@ -38,6 +39,7 @@ namespace services
         virtual void render(core::Object *object) override;
         virtual void render(core::Character *character) override;
         virtual void render_objects() override;
+        virtual void handle_user_input() override;
 
     public:
         TerminalGraphicsService(const int grid_size) : grid_size(grid_size) {}

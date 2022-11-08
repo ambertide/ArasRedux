@@ -29,13 +29,13 @@ int main()
 {
     // Construct services.
     auto service_locator = std::make_unique<services::ServiceLocator>();
-    auto graphics_service = std::make_unique<services::TerminalGraphicsService>(2);
+    auto graphics_service = std::make_unique<services::TerminalGraphicsService>(1);
     service_locator->provide(std::move(graphics_service));
 
     std::list<std::shared_ptr<core::Temporal>> temporals;
     std::list<std::shared_ptr<core::Object>> objects;
-    auto object = std::make_shared<core::Object>(1, 2, "Grail", core::Vector3{10.0f, 30.0f, 0.0f});
-    auto character = std::make_shared<core::Character>(2, 43, "Basic Enemy", core::Vector3{-30.0f, 20.0f, 0.0f}, core::Vector3{1.0f, 1.0f, 0.0f}, 25.0f, 0.5f, 5.0f, 1.0f);
+    auto object = std::make_shared<core::Object>(1, 2, "Grail", core::Vector3{7.0f, 10.0f, 0.0f});
+    auto character = std::make_shared<core::Character>(2, 43, "Basic Enemy", core::Vector3{-15.0f, 15.0f, 0.0f}, core::Vector3{1.0f, 1.0f, 0.0f}, 25.0f, 0.5f, 5.0f, 1.0f);
     objects.push_back(object);
     objects.push_back(character);
     core::Player player;
