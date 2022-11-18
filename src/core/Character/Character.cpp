@@ -101,15 +101,17 @@ void Character::walk(int delta)
 
 void Character::tick(int delta)
 {
-    switch (this->current_action()->type_)
-    {
-    case ActionType::WALK:
-        this->walk(delta);
-        break;
-    case ActionType::ATTACK:
-        this->target(delta);
-    default:
-        break;
+    if (!this->actions.empty()) {
+        switch (this->current_action()->type_)
+        {
+        case ActionType::WALK:
+            this->walk(delta);
+            break;
+        case ActionType::ATTACK:
+            this->target(delta);
+        default:
+            break;
+        }
     }
 }
 
