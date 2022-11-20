@@ -27,7 +27,10 @@ const std::shared_ptr<Action> Character::current_action() const
 {
     if (this->actions.empty())
     {
-        return nullptr;
+        // TODO: Convert this to a reference for faster delivery, although
+        // posibly compiler handles this too.
+        auto no_action = std::make_shared<NoAction>();
+        return no_action;
     }
     return this->actions.top();
 }
@@ -101,17 +104,15 @@ void Character::walk(int delta)
 
 void Character::tick(int delta)
 {
-    if (!this->actions.empty()) {
-        switch (this->current_action()->type_)
-        {
-        case ActionType::WALK:
-            this->walk(delta);
-            break;
-        case ActionType::ATTACK:
-            this->target(delta);
-        default:
-            break;
-        }
+    switch (this->current_action()->type_)
+    {
+    case ActionType::WALK:
+        this->walk(delta);
+        break;
+    case ActionType::ATTACK:
+        this->target(delta);
+    default:
+        break;
     }
 }
 

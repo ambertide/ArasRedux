@@ -1,4 +1,6 @@
 #pragma once
+
+#include <string>
 #include "../Object/Vector3.hpp"
 #include "State.hpp"
 #include "../Traits/Targetable.hpp"
@@ -11,7 +13,8 @@ namespace core
     enum ActionType
     {
         WALK,
-        ATTACK
+        ATTACK,
+        NOTHING
     };
 
     inline const std::string convert_action_type(ActionType type)
@@ -22,6 +25,8 @@ namespace core
             return "WALK";
         case ATTACK:
             return "ATTACK";
+        case NOTHING:
+            return "NOTHING";
         }
     }
 
@@ -46,5 +51,13 @@ namespace core
         /** Target entity to attack */
         Targetable &target;
         AttackAction(Targetable &target) : Action(ActionType::ATTACK, State::ATTACKING), target(target) {}
+    };
+
+    /**
+     * Indicates no aciton.
+     */
+    struct NoAction : public Action
+    {
+        NoAction() : Action(ActionType::NOTHING, State::IDLE) {}
     };
 };
