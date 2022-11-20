@@ -2,10 +2,18 @@ cmake_minimum_required(VERSION 3.15)
 project(aras_redux LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 20)
 
+set(CMAKE_BUILD_TYPE "Debug")
+
 set(INCLUDE_DIRECTORIES_LIST include)
 set(LINK_LIBRARIES_LIST)
 
 find_package(Curses)
+
+if (MSVC)
+    add_compile_options(/W4 /WX)
+else()
+    add_compile_options(-Wall -Wextra -pedantic -Werror)
+endif()
 
 if (${CURSES_FOUND})
     message(STATUS "Curses found, TerminalGraphicsService will use curses.")

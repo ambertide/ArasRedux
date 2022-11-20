@@ -11,8 +11,8 @@ namespace services
         virtual void release_screen() override {}
         virtual void print_player_stats() override {}
         virtual void render_player() override {}
-        virtual void render(core::Object *object) override {}
-        virtual void render(core::Character *character) override {}
+        virtual void render(core::Object*) override {}
+        virtual void render(core::Character*) override {}
         virtual void render_objects() override {}
         virtual void handle_user_input() override {}
 

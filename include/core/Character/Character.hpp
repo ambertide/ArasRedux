@@ -136,11 +136,13 @@ namespace core
             float range,
             float notice_range,
             const ObjectType object_type = ObjectType::CHARACTER)
-            : Object::Object(class_id, id, name, position, object_type),
+            : Locatable(position),
+              Object::Object(class_id, id, name, position, object_type),
               Targetable::Targetable(position, health, health),
               Hostile::Hostile(attack, range, notice_range),
-              speed(speed),
               state(State::IDLE),
-              Locatable(position) {}
+              speed(speed)
+        {
+        }
     };
 };

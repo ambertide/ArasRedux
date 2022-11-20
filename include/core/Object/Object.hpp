@@ -38,15 +38,15 @@ namespace core
          *
          * @return const uint64_t& Const reference to object id.
          */
-        const uint64_t id() const { return this->id_; }
+        uint64_t id() const { return this->id_; }
 
         /** @brief Get the name of the object. */
         const std::string name() const { return this->name_; };
 
         /** @brief Get the unique class id of the object. */
-        const uint16_t class_id() const { return this->class_id_; };
+        uint16_t class_id() const { return this->class_id_; };
 
-        const ObjectType object_type() const { return this->object_type_; }
+        ObjectType object_type() const { return this->object_type_; }
 
         /**
          * @brief Construct a new Object object.
@@ -54,10 +54,10 @@ namespace core
          * @param id
          */
         Object(uint32_t class_id, uint64_t id, const std::string name, Vector3<float> position, const ObjectType type = ObjectType::BASIC)
-            : class_id_(class_id),
+            : Locatable::Locatable(position),
+              object_type_(type),
+              class_id_(class_id),
               id_(id),
-              name_(name),
-              Locatable::Locatable(position),
-              object_type_(type) {}
+              name_(name) {}
     };
 };

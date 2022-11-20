@@ -4,7 +4,7 @@
 		{
 			"type": "shell",
 			"label": "Build Aras",
-			"command": "cd build && cmake .. && make",
+			"command": "cd build && cmake .. && make .",
 			"group": {
 				"kind": "build",
 				"isDefault": true

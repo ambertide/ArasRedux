@@ -94,7 +94,7 @@ namespace core
 		 * @param b
 		 * @return float
 		 */
-		static const double point_distance(const Vector3<T> &a, const Vector3<T> &b)
+		static double point_distance(const Vector3<T> &a, const Vector3<T> &b)
 		{
 			T d_x = a.x - b.x;
 			T d_y = a.y - b.y;

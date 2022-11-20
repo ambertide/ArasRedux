@@ -38,6 +38,7 @@ int main()
     auto character = std::make_shared<core::Character>(2, 43, "Basic Enemy", core::Vector3{-15.0f, 15.0f, 0.0f}, core::Vector3{1.0f, 1.0f, 0.0f}, 25.0f, 0.5f, 5.0f, 1.0f);
     objects.push_back(object);
     objects.push_back(character);
+    temporals.push_back(character);
     core::Player player;
     // Generate the main level and load it to the services.
     auto main_level = std::make_shared<core::Level>(player, temporals, objects);
